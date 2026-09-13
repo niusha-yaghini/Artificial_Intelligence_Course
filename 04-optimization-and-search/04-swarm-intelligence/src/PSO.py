@@ -185,6 +185,7 @@ def particle_swarm_optimization(
 
     # History of best solutions
     history = []
+    particle_positions_history = []
 
     # Step 3: Optimization Loop
     for iteration in range(
@@ -199,6 +200,17 @@ def particle_swarm_optimization(
 
         # Update Position
         swarm.update_position()
+        
+        # Store particle positions
+
+        positions = []
+        for particle in swarm.particles:
+            positions.append(
+                particle.position.copy()
+            )
+        particle_positions_history.append(
+            positions
+        )
 
         # Evaluate New Positions
         swarm.evaluate(
@@ -215,4 +227,5 @@ def particle_swarm_optimization(
         "solution": swarm.global_best_position,
         "fitness": swarm.global_best_fitness,
         "history": history,
+        "particle_history": particle_positions_history
     }
