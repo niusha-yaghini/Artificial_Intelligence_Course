@@ -1,4 +1,6 @@
 import random
+import numpy as np
+
 
 FUNCTIONS = [
     "+",
@@ -13,6 +15,35 @@ TERMINALS = [
     2,
     3,
 ]
+
+def fitness_function(
+    tree,
+    x_data,
+    y_data,
+):
+    predictions = []
+
+    for x in x_data:
+        try:
+            value = tree.evaluate(
+                x
+            )
+        except:
+            value = 1e6
+        predictions.append(
+            value
+        )
+
+    predictions = np.array(
+        predictions
+    )
+
+    error = np.mean(
+        (predictions - y_data)**2
+    )
+
+    return error
+
 
 def generate_random_tree(
     max_depth,
