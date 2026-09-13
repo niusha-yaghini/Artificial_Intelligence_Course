@@ -250,3 +250,128 @@ def subtree_crossover(
     target_node.right = donor_subtree.right
 
     return child
+
+
+def subtree_mutation(
+    tree,
+    max_depth=3,
+):
+    # Step 1: Create independent copy
+    mutated_tree = copy.deepcopy(
+        tree
+    )
+
+    # Step 2: Select random node
+    mutation_node = get_random_node(
+        mutated_tree
+    )
+
+    # Step 3: Generate new random subtree
+    new_subtree = generate_random_tree(
+        max_depth
+    )
+
+    # Step 4: Replace selected node
+    mutation_node.value = new_subtree.value
+    mutation_node.left = new_subtree.left
+    mutation_node.right = new_subtree.right
+
+    return mutated_tree
+
+
+def genetic_programming(
+    x_data,
+    y_data,
+    population_size=100,
+    generations=50,
+    max_depth=3,
+    crossover_rate=0.9,
+    mutation_rate=0.1,
+):
+    population = []
+
+    # Step 1: Initialize Population
+    for _ in range(population_size):
+        population.append(
+            generate_random_tree(
+                max_depth
+            )
+        )
+
+    history = []
+    best_tree = None
+    best_fitness = float("inf")
+
+    # Step 2: Evolution Loop
+    for generation in range(
+        generations
+    ):
+        fitness_values = []
+
+        # Evaluate Population
+        for tree in population:
+            fitness_values.append(
+                fitness_function(
+                    tree,
+                    x_data,
+                    y_data,
+                )
+            )
+
+        # Find Best
+        best_index = np.argmin(
+            fitness_values
+        )
+
+        if fitness_values[best_index] < best_fitness:
+            best_fitness = fitness_values[
+                best_index
+            ]
+            best_tree = copy.deepcopy(
+                population[best_index]
+            )
+
+        history.append(
+            best_fitness
+        )
+
+        # Step 3: Create Next Generation
+        new_population = []
+
+        while len(new_population) < population_size:
+            parent1 = tournament_selection(
+                population,
+                fitness_values,
+            )
+            parent2 = tournament_selection(
+                population,
+                fitness_values,
+            )
+
+            if random.random() < crossover_rate:
+                child = subtree_crossover(
+                    parent1,
+                    parent2,
+                )
+            else:
+                child = copy.deepcopy(
+                    parent1
+                )
+
+            if random.random() < mutation_rate:
+                child = subtree_mutation(
+                    child,
+                    max_depth,
+                )
+
+            new_population.append(
+                child
+            )
+
+        population = new_population
+
+    return {
+        "best_tree": best_tree,
+        "fitness": best_fitness,
+        "history": history,
+    }
