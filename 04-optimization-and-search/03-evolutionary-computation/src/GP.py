@@ -1,3 +1,57 @@
+import random
+
+FUNCTIONS = [
+    "+",
+    "-",
+    "*",
+    "/",
+]
+
+TERMINALS = [
+    "x",
+    1,
+    2,
+    3,
+]
+
+def generate_random_tree(
+    max_depth,
+    current_depth=0,
+):
+    # Stop condition: If maximum depth reached, create terminal node
+    if current_depth >= max_depth:
+        return Node(
+            random.choice(
+                TERMINALS
+            )
+        )
+
+    # Decide node type
+    if random.random() < 0.7:
+        # Function Node
+        function = random.choice(
+            FUNCTIONS
+        )
+        return Node(
+            function,
+            generate_random_tree(
+                max_depth,
+                current_depth + 1,
+            ),
+            generate_random_tree(
+                max_depth,
+                current_depth + 1,
+            ),
+        )
+    else:
+        # Terminal Node
+        return Node(
+            random.choice(
+                TERMINALS
+            )
+        )
+        
+
 class Node:
     def __init__(
         self,
