@@ -445,20 +445,20 @@ class NodeAdvanced:
             return np.cos(
                 self.children[0].evaluate(x)
             )
-        elif self.value == "exp":
-            value = self.children[0].evaluate(x)
-            return np.exp(
-                np.clip(
-                    value,
-                    -10,
-                    10
-                )
-            )
-        elif self.value == "log":
-            value = self.children[0].evaluate(x)
-            return np.log(
-                abs(value)+1e-8
-            )
+        # elif self.value == "exp":
+        #     value = self.children[0].evaluate(x)
+        #     return np.exp(
+        #         np.clip(
+        #             value,
+        #             -10,
+        #             10
+        #         )
+        #     )
+        # elif self.value == "log":
+        #     value = self.children[0].evaluate(x)
+        #     return np.log(
+        #         abs(value)+1e-8
+        #     )
         else:
             raise ValueError(
                 f"Unknown operator: {self.value}"
@@ -540,8 +540,8 @@ ADVANCED_FUNCTIONS = [
     "/",
     "sin",
     "cos",
-    "exp",
-    "log",
+    # "exp",
+    # "log",
 ]
 
 def generate_random_constant():
@@ -573,8 +573,8 @@ def get_function_arity(
     elif function in [
         "sin",
         "cos",
-        "exp",
-        "log",
+        # "exp",
+        # "log",
     ]:
         return 1
     
