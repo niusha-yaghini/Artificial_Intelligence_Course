@@ -1,6 +1,5 @@
 import numpy as np
 
-
 class Particle:
     def __init__(
         self,
@@ -162,3 +161,58 @@ class Swarm:
                     particle.position[i] = low
                 elif particle.position[i] > high:
                     particle.position[i] = high
+                    
+                    
+def particle_swarm_optimization(
+    fitness_function,
+    bounds,
+    population_size=50,
+    iterations=100,
+    w=0.7,
+    c1=2,
+    c2=2,
+):
+    # Step 1: Problem Dimension
+    dimension = len(bounds)
+
+    # Step 2: Initialize Swarm
+    swarm = Swarm(
+        population_size,
+        dimension,
+        bounds,
+        fitness_function,
+    )
+
+    # History of best solutions
+    history = []
+
+    # Step 3: Optimization Loop
+    for iteration in range(
+        iterations
+    ):
+        # Update Velocity
+        swarm.update_velocity(
+            w,
+            c1,
+            c2,
+        )
+
+        # Update Position
+        swarm.update_position()
+
+        # Evaluate New Positions
+        swarm.evaluate(
+            fitness_function
+        )
+
+        # Save Best Fitness
+        history.append(
+            swarm.global_best_fitness
+        )
+
+    # Step 4: Return Result
+    return {
+        "solution": swarm.global_best_position,
+        "fitness": swarm.global_best_fitness,
+        "history": history,
+    }
