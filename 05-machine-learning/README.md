@@ -1,3 +1,5 @@
+** All datasets are using locally, but the link for downloading them are gonna be provided in each case needed.
+
 # Machine Learning
 
 This section covers the fundamental concepts, algorithms, and practical implementations of classical Machine Learning.

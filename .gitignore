@@ -1,0 +1,27 @@
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Virtual environments
+venv/
+.env/
+
+# VS Code
+.vscode/
+
+# Dataset files
+datasets/*/raw/*
+datasets/*/processed/*
+
+# Keep dataset documentation
+!datasets/*/README.md
+
+# Generated results
+results/
+
+# OS files
+.DS_Store
+Thumbs.db
