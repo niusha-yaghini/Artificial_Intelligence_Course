@@ -8,3 +8,12 @@ tensorflow=2.18.0
 torch=2.7.0
 jupyter
 ipykernel
+
+---------------------------------
+
+SciPy      → classical optimization + Differential Evolution
+DEAP       → GA + GP + evolutionary algorithms
+pymoo      → evolutionary / multi-objective optimization
+PySwarms   → PSO
+OR-Tools   → TSP / VRP / scheduling / combinatorial optimization
+MEALPY     → Supporting a lot of Metahuristic Algorithms such as: PSO, ABC, GWO, CS, ...
