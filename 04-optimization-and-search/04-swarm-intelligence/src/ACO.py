@@ -1,22 +1,6 @@
 import numpy as np
 
 
-# import sys
-# import os
-
-# sys.path.append(
-#     os.path.dirname(
-#         os.path.dirname(__file__)
-#     )
-# )
-
-# from problems.tsp import (
-#     TSPProblem,
-#     create_complete_graph,
-# )
-
-
-
 def initialize_pheromones(
     num_cities,
     initial_pheromone=1.0,
@@ -158,7 +142,6 @@ def select_next_city(
     ) == 0:
         return None
 
-
     probabilities = (
         calculate_transition_probabilities(
             current_city,
@@ -169,7 +152,6 @@ def select_next_city(
             beta,
         )
     )
-
 
     next_city = np.random.choice(
         available_cities,
@@ -208,7 +190,6 @@ def construct_ant_route(
             problem.num_cities
         )
 
-
     route = [
         start_city
     ]
@@ -243,7 +224,6 @@ def construct_ant_route(
             if city not in visited
         ]
 
-
         # -------------------------------
         # Dead-end
         # -------------------------------
@@ -255,7 +235,6 @@ def construct_ant_route(
                 route,
                 False,
             )
-
 
         # -------------------------------
         # Select next city
@@ -270,7 +249,6 @@ def construct_ant_route(
             beta,
         )
 
-
         route.append(
             next_city
         )
@@ -282,7 +260,6 @@ def construct_ant_route(
         current_city = (
             next_city
         )
-
 
     # =====================================
     # Step 3:
@@ -298,7 +275,6 @@ def construct_ant_route(
             False,
         )
 
-
     # =====================================
     # Step 4:
     # Feasible route
@@ -308,65 +284,6 @@ def construct_ant_route(
         route,
         True,
     )
-    
-    
-
-# from problems.tsp import (
-#     TSPProblem,
-#     create_complete_graph,
-# )
-
-# from src.ACO import (
-#     initialize_pheromones,
-#     build_heuristic_matrix,
-#     construct_ant_route,
-# )
-
-    
-
-# cities = [
-#     [1, 1],
-#     [2, 5],
-#     [5, 8],
-#     [8, 7],
-#     [9, 3],
-#     [6, 1],
-#     [4, 4],
-#     [7, 5],
-# ]    
-    
-    
-# graph = create_complete_graph(
-#     len(cities)
-# )
-
-# problem = TSPProblem(
-#     cities,
-#     graph,
-# )    
-
-    
-# pheromones = initialize_pheromones(
-#     problem.num_cities
-# )
-
-# heuristic = build_heuristic_matrix(
-#     problem
-# )
-    
-# route, feasible = construct_ant_route(
-#     problem,
-#     pheromones,
-#     heuristic,
-#     alpha=1.0,
-#     beta=2.0,
-# )
-
-    
-    
-    
-    
-    
     
 # Note: This function modifies the matrix in-place and returns it.
 def evaporate_pheromones(
@@ -480,3 +397,145 @@ def update_pheromones(
     )
 
     return pheromones
+
+
+def ant_colony_optimization(
+    problem,
+    num_ants=20,
+    iterations=100,
+    alpha=1.0,
+    beta=2.0,
+    evaporation_rate=0.2,
+    q=1.0,
+):
+    """
+    Complete Ant Colony Optimization algorithm
+    for TSP.
+
+    Returns:
+        best_route
+        best_length
+        history
+    """
+
+    # =====================================
+    # Step 1:
+    # Initialize pheromone and heuristic
+    # =====================================
+
+    pheromones = initialize_pheromones(
+        problem.num_cities
+    )
+
+
+    heuristic = build_heuristic_matrix(
+        problem
+    )
+
+
+    # =====================================
+    # Step 2:
+    # Global best initialization
+    # =====================================
+
+    best_route = None
+
+    best_length = np.inf
+
+
+    history = []
+
+
+    # =====================================
+    # Step 3:
+    # Main optimization loop
+    # =====================================
+
+    for iteration in range(
+        iterations
+    ):
+
+        routes = []
+
+        route_lengths = []
+
+
+        # ---------------------------------
+        # Each ant builds a solution
+        # ---------------------------------
+
+        for _ in range(
+            num_ants
+        ):
+
+            route, feasible = (
+                construct_ant_route(
+                    problem,
+                    pheromones,
+                    heuristic,
+                    alpha,
+                    beta,
+                )
+            )
+
+
+            if feasible:
+
+                length = (
+                    problem.route_length(
+                        route
+                    )
+                )
+
+            else:
+
+                length = np.inf
+
+
+            routes.append(
+                route
+            )
+
+            route_lengths.append(
+                length
+            )
+
+
+            # -----------------------------
+            # Update global best
+            # -----------------------------
+
+            if length < best_length:
+
+                best_length = length
+
+                best_route = route.copy()
+
+
+        # ---------------------------------
+        # Update pheromones
+        # ---------------------------------
+
+        pheromones = update_pheromones(
+            pheromones,
+            routes,
+            route_lengths,
+            evaporation_rate,
+            q,
+        )
+
+
+        # ---------------------------------
+        # Save convergence history
+        # ---------------------------------
+
+        history.append(
+            best_length
+        )
+
+
+    return {
+        "route": best_route,
+        "length": best_length,
+        "history": history,
+    }
