@@ -215,3 +215,28 @@ Feature Selection
 Machine Learning Models
 
 The developed pipeline creates meaningful features from raw data and identifies the most valuable information before applying supervised learning algorithms.
+
+------------------------------------
+
+In Future:
+
+03-feature-engineering
+
+├── Feature Transformation
+│   ├── Log transform
+│   ├── Box-Cox
+│   └── Power transform
+│
+├── Feature Construction
+│   ├── Polynomial Features
+│   ├── Interaction Features
+│   └── Domain Features
+│
+├── Feature Selection
+│   ├── Filter Methods
+│   ├── Wrapper Methods
+│   └── Embedded Methods
+│
+└── Feature Extraction
+    ├── PCA
+    └── Autoencoder
