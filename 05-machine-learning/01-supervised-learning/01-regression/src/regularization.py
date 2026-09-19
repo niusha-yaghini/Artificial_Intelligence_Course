@@ -2,7 +2,6 @@ import numpy as np
 
 
 class RidgeRegressionGD:
-
     def __init__(
         self,
         learning_rate=0.001,
@@ -174,6 +173,141 @@ class RidgeRegressionGD:
         -------
         predictions : numpy array
         """
+
+        return (
+            X @ self.weights
+            + self.bias
+        )
+        
+
+
+class LassoRegressionGD:
+
+    def __init__(
+        self,
+        learning_rate=0.001,
+        epochs=1000,
+        lambda_=0.1
+    ):
+
+        self.learning_rate = learning_rate
+        self.epochs = epochs
+        self.lambda_ = lambda_
+
+        self.weights = None
+        self.bias = None
+
+        self.loss_history = []
+
+
+    def fit(
+        self,
+        X,
+        y
+    ):
+
+        n_samples, n_features = X.shape
+
+
+        self.weights = np.zeros(
+            n_features
+        )
+
+        self.bias = 0
+
+
+        for epoch in range(
+            self.epochs
+        ):
+
+
+            # Prediction
+
+            y_pred = (
+                X @ self.weights
+                + self.bias
+            )
+
+
+            error = (
+                y_pred - y
+            )
+
+
+            # Gradient of weights
+
+            dw = (
+                (2 / n_samples)
+                *
+                (X.T @ error)
+                +
+                self.lambda_
+                *
+                np.sign(
+                    self.weights
+                )
+            )
+
+
+            # Gradient of bias
+
+            db = (
+                (2 / n_samples)
+                *
+                np.sum(error)
+            )
+
+
+            # Update
+
+            self.weights -= (
+                self.learning_rate
+                *
+                dw
+            )
+
+
+            self.bias -= (
+                self.learning_rate
+                *
+                db
+            )
+
+
+            # Loss
+
+            mse = np.mean(
+                error ** 2
+            )
+
+
+            l1_penalty = (
+                self.lambda_
+                *
+                np.sum(
+                    np.abs(
+                        self.weights
+                    )
+                )
+            )
+
+
+            loss = (
+                mse
+                +
+                l1_penalty
+            )
+
+
+            self.loss_history.append(
+                loss
+            )
+
+
+    def predict(
+        self,
+        X
+    ):
 
         return (
             X @ self.weights
