@@ -24,6 +24,11 @@ Raw and processed data files are kept locally and are not committed to GitHub.
   - `05-machine-learning/00-data-preprocessing-and-eda/04_feature_selection.ipynb` -
   - `05-machine-learning/01-supervised-learning/02-classification/01_logistic_regression.ipynb`
   - `05-machine-learning/01-supervised-learning/02-classification/02_k_nearest_neighbors.ipynb`
+  - `05-machine-learning/01-supervised-learning/02-classification/03_naive_bayes.ipynb`
+  - `05-machine-learning/01-supervised-learning/02-classification/04_decision_tree.ipynb`
+  - `05-machine-learning/01-supervised-learning/02-classification/05_random_forest.ipynb`
+
+
 
 ## California Housing
 - Source: scikit-learn built-in dataset
