@@ -29,7 +29,6 @@ Raw and processed data files are kept locally and are not committed to GitHub.
   - `05-machine-learning/01-supervised-learning/02-classification/05_random_forest.ipynb`
 
 
-
 ## California Housing
 - Source: scikit-learn built-in dataset
 - Loading method:
@@ -38,9 +37,11 @@ Raw and processed data files are kept locally and are not committed to GitHub.
 - Used in:
   - `05-machine-learning/01-supervised-learning/regression/01_linear_regression.ipynb` - 
 
-## Iris Dataset
-- Source: UCI / Scikit-learn
-- Link: https://archive.ics.uci.edu/ml/datasets/iris
-- Used in:
-  - `01-supervised-learning/Classification/02_k_nearest_neighbors.ipynb`
 
+## Iris Dataset
+- Source: scikit-learn built-in dataset  
+- Loading method:
+  `load_iris()`
+- Link: [https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_iris.html](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_iris.html)
+- Used in:
+  - `05-machine-learning/02-unsupervised-learning/01-clustering/01_kmeans.ipynb\`
