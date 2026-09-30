@@ -49,3 +49,5 @@ Raw and processed data files are kept locally and are not committed to GitHub.
   - `05-machine-learning/02-unsupervised-learning/01-clustering/03_hierarchical_clustering.ipynb`
   - `05-machine-learning/02-unsupervised-learning/01-clustering/04_guassian_mixture_model.ipynb`
   - `05-machine-learning/02-unsupervised-learning/02-dimentionality-reduction/01_pca.ipynb`
+  - `05-machine-learning/02-unsupervised-learning/02-dimentionality-reduction/02_svd.ipynb`
+  - `05-machine-learning/02-unsupervised-learning/02-dimentionality-reduction/03_t_SNE.ipynb`
