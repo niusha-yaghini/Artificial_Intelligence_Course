@@ -51,3 +51,4 @@ Raw and processed data files are kept locally and are not committed to GitHub.
   - `05-machine-learning/02-unsupervised-learning/02-dimentionality-reduction/01_pca.ipynb`
   - `05-machine-learning/02-unsupervised-learning/02-dimentionality-reduction/02_svd.ipynb`
   - `05-machine-learning/02-unsupervised-learning/02-dimentionality-reduction/03_t_SNE.ipynb`
+  - `07-probabilistic-reasoning/02_bayesian_networks.ipynb`
