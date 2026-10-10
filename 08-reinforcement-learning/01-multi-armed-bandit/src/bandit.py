@@ -127,7 +127,6 @@ class EpsilonDecayAgent(BanditAgent):
         return action
 
 
-
 # def run_agent(
 #     bandit,
 #     agent,
@@ -152,3 +151,48 @@ class EpsilonDecayAgent(BanditAgent):
 #     agent,
 #     steps=5000
 # )
+
+
+class UCBAgent(BanditAgent):
+
+    def __init__(
+        self,
+        n_arms,
+        c=2
+    ):
+        super().__init__(
+            n_arms
+        )
+
+        self.c = c
+        self.total_steps = 0
+
+
+    def select_action(self):
+
+        self.total_steps += 1
+
+
+        for arm in range(self.n_arms):
+
+            if self.counts[arm] == 0:
+                return arm
+
+
+        confidence = self.c * np.sqrt(
+            np.log(self.total_steps)
+            /
+            self.counts
+        )
+
+
+        ucb_values = (
+            self.values
+            +
+            confidence
+        )
+
+
+        return np.argmax(
+            ucb_values
+        )
