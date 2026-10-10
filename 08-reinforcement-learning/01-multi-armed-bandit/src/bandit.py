@@ -2,14 +2,11 @@ import numpy as np
 
 
 class MultiArmedBandit:
-
     def __init__(
         self,
         n_arms=10
     ):
-
         self.n_arms = n_arms
-
         self.means = np.random.normal(
             0,
             1,
@@ -38,6 +35,7 @@ class BanditAgent:
         self.values = np.zeros(
             n_arms
         )
+        self.epsilon_history = []
 
     def update(
         self,
@@ -66,6 +64,10 @@ class EpsilonGreedyAgent(BanditAgent):
         self.epsilon = epsilon
 
     def select_action(self):
+        
+        self.epsilon_history.append(
+            self.epsilon
+        )
 
         if np.random.random() < self.epsilon:
             return np.random.randint(self.n_arms)
@@ -80,7 +82,52 @@ class EpsilonGreedyAgent(BanditAgent):
             candidates
         )
        
+
+class EpsilonDecayAgent(BanditAgent):
+    def __init__(
+        self,
+        n_arms,
+        epsilon=1.0,
+        decay=0.995,
+        min_epsilon=0.01
+    ):
+        super().__init__(
+            n_arms
+        )
+
+        self.epsilon = epsilon
+        self.decay = decay
+        self.min_epsilon = min_epsilon
+
+    def select_action(self):
+        self.epsilon_history.append(
+            self.epsilon
+        )
         
+        if np.random.random() < self.epsilon:
+            action = np.random.randint(
+                self.n_arms
+            )
+        else:
+            max_value = np.max(
+                self.values
+            )
+            candidates = np.where(
+                self.values == max_value
+            )[0]
+            action = np.random.choice(
+                candidates
+            )
+
+        self.epsilon = max(
+            self.min_epsilon,
+            self.epsilon * self.decay
+        )
+
+        return action
+
+
+
 # def run_agent(
 #     bandit,
 #     agent,
