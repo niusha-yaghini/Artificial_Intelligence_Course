@@ -1,7 +1,5 @@
 # Datasets
 
-# Datasets
-
 Datasets are excluded from version control using `.gitignore` because
 some datasets used in future experiments may be large.
 
@@ -52,3 +50,17 @@ Raw and processed data files are kept locally and are not committed to GitHub.
   - `05-machine-learning/02-unsupervised-learning/02-dimentionality-reduction/02_svd.ipynb`
   - `05-machine-learning/02-unsupervised-learning/02-dimentionality-reduction/03_t_SNE.ipynb`
   - `07-probabilistic-reasoning/02_bayesian_networks.ipynb`
+
+
+**## Digits Dataset**
+- Source: scikit-learn built-in dataset
+- Loading method:
+  `load_digits()`
+- Link: [https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_digits.html](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_digits.html)
+- Dataset details:
+  - 1,797 handwritten digit images
+  - Image size: 8 × 8 pixels
+  - 64 input features per sample
+  - 10 classes (digits 0–9)
+- Used in:
+  - `09-neural-networks-from-scratch/02_mlp_digits_classification.ipynb`
