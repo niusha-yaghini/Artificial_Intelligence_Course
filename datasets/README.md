@@ -64,3 +64,4 @@ Raw and processed data files are kept locally and are not committed to GitHub.
   - 10 classes (digits 0–9)
 - Used in:
   - `09-neural-networks-from-scratch/02_mlp_digits_classification.ipynb`
+  - `10-ml-engineering-and-deployment/01_end_to_end_ml_pipeline.ipynb`
